@@ -2,8 +2,11 @@ package com.whinc.widgets;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.whinc.widget.RatingBar;
 
@@ -14,7 +17,29 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        new RatingBar(this);
+        LinearLayout root = (LinearLayout) findViewById(R.id.root);
+        final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+
+        findViewById(R.id.decrease_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingBar.setCount(ratingBar.getCount() - 1);
+            }
+        });
+        findViewById(R.id.increase_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingBar.setCount(ratingBar.getCount() + 1);
+            }
+        });
+        ratingBar.setOnCountChangeListener(new RatingBar.OnCountChangeListener() {
+            @Override
+            public void onChange(int preCount, int curCount) {
+                Log.i("TAG", String.format("previous count:%d, current count:%d", preCount, curCount));
+            }
+        });
+
+        root.addView(new RatingBar(this));
     }
 
     @Override
