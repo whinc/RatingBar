@@ -84,6 +84,10 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
     }
 
     private void init(Context context, AttributeSet attrs) {
+        if (isInEditMode()) {
+//            return;
+        }
+
         // Retrieve attributes
         if (attrs == null) {
             mMaxCount = MAX_COUNT;
@@ -97,10 +101,10 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
             }
         } else {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RatingBar);
-            mMaxCount = typedArray.getInteger(R.styleable.RatingBar_max_count, MAX_COUNT);
-            mCount = typedArray.getInteger(R.styleable.RatingBar_count, 0);
-            mFillDrawable = typedArray.getDrawable(R.styleable.RatingBar_fill);
-            mEmptyDrawable = typedArray.getDrawable(R.styleable.RatingBar_empty);
+            mMaxCount = typedArray.getInteger(R.styleable.RatingBar_rb_max_count, MAX_COUNT);
+            mCount = typedArray.getInteger(R.styleable.RatingBar_rb_count, 0);
+            mFillDrawable = typedArray.getDrawable(R.styleable.RatingBar_rb_fill);
+            mEmptyDrawable = typedArray.getDrawable(R.styleable.RatingBar_rb_empty);
             typedArray.recycle();
 
             if (mFillDrawable == null) {
@@ -124,20 +128,19 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
 
         LayoutInflater inflater = LayoutInflater.from(context);
         LinearLayout rootLayout = (LinearLayout) inflater.inflate(R.layout.ratingbar, null);
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        addView(rootLayout, lp);
 
         mImageViews = new ImageView[mMaxCount];
         for (int i = 0; i < mMaxCount; ++i) {
             View view = inflater.inflate(R.layout.include_item, rootLayout, false);
+            rootLayout.addView(view);
             mImageViews[i] = (ImageView)view.findViewById(R.id.star_imageView);
             mImageViews[i].setImageDrawable((i < mCount) ? mFillDrawable : mEmptyDrawable);
             mImageViews[i].setOnClickListener(this);
             mImageViews[i].setTag(i);
-            rootLayout.addView(view);
         }
-
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        addView(rootLayout, lp);
     }
 
     /**

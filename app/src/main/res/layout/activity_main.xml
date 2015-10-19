@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
     <TextView
         android:text="@string/hello_world"
@@ -20,10 +21,11 @@
     <com.whinc.widget.RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:max_count="5"
-        app:count="3"
-        app:fill="@mipmap/ic_launcher"
+        android:layout_height="wrap_content"
+        app:rb_count="3"
+        app:rb_empty="@drawable/empty"
+        app:rb_fill="@drawable/fill"
+        app:rb_max_count="5"
         />
     <LinearLayout
         android:layout_width="match_parent"
