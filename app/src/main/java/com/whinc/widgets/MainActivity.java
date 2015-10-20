@@ -39,7 +39,6 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        root.addView(new RatingBar(this));
     }
 
     @Override
