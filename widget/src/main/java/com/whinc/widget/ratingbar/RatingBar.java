@@ -9,14 +9,13 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.whinc.widget.R;
 
 /**
  * Created by wuhui on 10/16/15.<br>
@@ -188,14 +187,22 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
         mRootLayout.removeAllViewsInLayout();
 
         // create new image views
-        LayoutInflater inflater = LayoutInflater.from(context);
         mImageViews = new ImageView[count];
-        for (int i = 0; i < mMaxCount; ++i) {
-            View view = inflater.inflate(R.layout.include_item, mRootLayout, false);
-            mRootLayout.addView(view);
-            mImageViews[i] = (ImageView)view.findViewById(R.id.star_imageView);
-            mImageViews[i].setOnClickListener(this);
-            mImageViews[i].setTag(i);
+        for (int i = 0; i < mImageViews.length; ++i) {
+            FrameLayout frameLayout = new FrameLayout(context);
+            mRootLayout.addView(frameLayout, new LinearLayout.LayoutParams(
+                    0, ViewGroup.LayoutParams.MATCH_PARENT, 1
+            ));
+
+            mImageViews[i] = new ImageView(context);
+            ImageView imageView = mImageViews[i];
+            imageView.setOnClickListener(this);
+            imageView.setTag(i);
+            frameLayout.addView(imageView, new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER
+            ));
         }
 
         update();

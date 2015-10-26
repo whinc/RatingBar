@@ -13,7 +13,7 @@ The widget has been hosted on jcenter, you can use it by add one line below in y
 ```
 dependencies {
     ...
-    compile 'com.whinc.widget:ratingbar:1.1.2'
+    compile 'com.whinc.widget.ratingbar:ratingbar:1.0.2'
 }
 ```
 
