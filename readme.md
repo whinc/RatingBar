@@ -19,10 +19,10 @@ dependencies {
 
 ### How to use （如何使用）
 
-Use in layout like below:
+Create RatingBar in xml layout:
 
 ```
-<com.whinc.widget.RatingBar
+<com.whinc.widget.ratingbar.RatingBar
     android:id="@+id/ratingBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -33,16 +33,32 @@ Use in layout like below:
     />
 ```
 
-After find RatingBar, you can change it's rating count and listener to it's rating changing event.
+Create RatingBar in java code:
 
 ```
-RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-ratingBar.setCount(3);
-ratingBar.setOnCountChangeListener(new RatingBar.OnCountChangeListener() {
+RatingBar ratingBar2 = new RatingBar(this);
+ratingBar2.setMaxCount(7);
+ratingBar2.setCount(4);
+ratingBar2.setFillDrawableRes(R.drawable.empty);
+ratingBar2.setEmptyDrawableRes(R.drawable.fill);
+ratingBar2.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
     @Override
-    public void onChange(int preCount, int curCount) {
+    public void onChange(RatingBar view, int preCount, int curCount) {
+        Log.i("TAG", String.format("previous count:%d, current count:%d", preCount, curCount));
     }
 });
+```
+
+If you don't want RatingBar is clickable, do this:
+```
+<com.whinc.widget.ratingbar.RatingBar
+    ...
+    android:clickable="false"
+    />
+```
+or
+```
+ratingBar2.setClickable(false);
 ```
 
 ### Customise （自定义）

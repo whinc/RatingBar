@@ -1,10 +1,11 @@
-package com.whinc.widget;
+package com.whinc.widget.ratingbar;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -15,6 +16,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.whinc.widget.R;
+
 /**
  * Created by wuhui on 10/16/15.<br>
  */
@@ -22,22 +25,23 @@ import android.widget.LinearLayout;
 public class RatingBar extends FrameLayout implements View.OnClickListener{
     private static final String TAG = RatingBar.class.getSimpleName();
     private static final int MAX_COUNT = 5;
+
+    /* Customise xml attributes */
     private int mMaxCount = MAX_COUNT;
     private int mCount = 0;
     private Drawable mFillDrawable = null;
     private Drawable mEmptyDrawable = null;
+    private OnRatingChangeListener mOnRatingChangeListener = null;
 
-    public void setOnCountChangeListener(@Nullable OnCountChangeListener countChangeListener) {
-        mCountChangeListener = countChangeListener;
-    }
-
-    private OnCountChangeListener mCountChangeListener = null;
+    private LinearLayout mRootLayout;
     private ImageView[] mImageViews = null;
+    private Context mContext;
 
     public RatingBar(@NonNull Context context) {
         super(context);
         init(context, null);
     }
+
     public RatingBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
@@ -46,11 +50,48 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RatingBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
+    }
+
+    public Drawable getFillDrawable() {
+        return mFillDrawable;
+    }
+
+    public void setFillDrawable(Drawable fillDrawable) {
+        mFillDrawable = fillDrawable;
+        update();
+    }
+
+    public void setFillDrawableRes(@DrawableRes int res) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setFillDrawable(mContext.getDrawable(res));
+        } else {
+            setFillDrawable(mContext.getResources().getDrawable(res));
+        }
+    }
+
+    public Drawable getEmptyDrawable() {
+        return mEmptyDrawable;
+    }
+
+    public void setEmptyDrawable(Drawable emptyDrawable) {
+        mEmptyDrawable = emptyDrawable;
+        update();
+    }
+
+    public void setEmptyDrawableRes(@DrawableRes int res) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setEmptyDrawable(mContext.getDrawable(res));
+        } else {
+            setEmptyDrawable(mContext.getResources().getDrawable(res));
+        }
+    }
+
+    public void setOnRatingChangeListener(@Nullable OnRatingChangeListener listener) {
+        mOnRatingChangeListener = listener;
     }
 
     /**
@@ -59,6 +100,15 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
      */
     public int getMaxCount() {
         return mMaxCount;
+    }
+
+    /**
+     * <p>Set max rating count which will lead to RatingBar refreshing immediately </p>
+     * @param maxCount
+     */
+    public void setMaxCount(int maxCount) {
+        mMaxCount = maxCount;
+        createChildViews(mContext, maxCount);
     }
 
     /**
@@ -78,15 +128,13 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
         int oldCount = mCount;
         mCount = Math.max(0, Math.min(count, mMaxCount));
         update();
-        if (mCountChangeListener != null) {
-            mCountChangeListener.onChange(oldCount, mCount);
+        if (mOnRatingChangeListener != null) {
+            mOnRatingChangeListener.onChange(this, oldCount, mCount);
         }
     }
 
     private void init(Context context, AttributeSet attrs) {
-        if (isInEditMode()) {
-//            return;
-        }
+        mContext = context;
 
         // Retrieve attributes
         if (attrs == null) {
@@ -126,21 +174,31 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
             mCount = Math.max(0, Math.min(mCount, mMaxCount));
         }
 
-        LayoutInflater inflater = LayoutInflater.from(context);
-        LinearLayout rootLayout = (LinearLayout) inflater.inflate(R.layout.ratingbar, null);
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        addView(rootLayout, lp);
+        mRootLayout = new LinearLayout(context);
+        addView(mRootLayout, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
 
-        mImageViews = new ImageView[mMaxCount];
+        createChildViews(context, mMaxCount);
+    }
+
+    private void createChildViews(Context context, int count) {
+        // remove previous child views
+        mRootLayout.removeAllViewsInLayout();
+
+        // create new image views
+        LayoutInflater inflater = LayoutInflater.from(context);
+        mImageViews = new ImageView[count];
         for (int i = 0; i < mMaxCount; ++i) {
-            View view = inflater.inflate(R.layout.include_item, rootLayout, false);
-            rootLayout.addView(view);
+            View view = inflater.inflate(R.layout.include_item, mRootLayout, false);
+            mRootLayout.addView(view);
             mImageViews[i] = (ImageView)view.findViewById(R.id.star_imageView);
-            mImageViews[i].setImageDrawable((i < mCount) ? mFillDrawable : mEmptyDrawable);
             mImageViews[i].setOnClickListener(this);
             mImageViews[i].setTag(i);
         }
+
+        update();
     }
 
     /**
@@ -149,6 +207,7 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
     private void update() {
         for (int i = 0; i < mMaxCount; ++i) {
             mImageViews[i].setImageDrawable((i < mCount) ? mFillDrawable : mEmptyDrawable);
+            mImageViews[i].setClickable(isClickable());
         }
     }
 
@@ -158,13 +217,19 @@ public class RatingBar extends FrameLayout implements View.OnClickListener{
         setCount(index + 1);
     }
 
-    public interface OnCountChangeListener {
+    @Override
+    public void setClickable(boolean clickable) {
+        super.setClickable(clickable);
+        update();
+    }
+
+    public interface OnRatingChangeListener {
         /**
          * <p>This method will be execute after every change of rating bar </p>
          * @param preCount previous rating count
          * @param curCount current rating count
          */
-        void onChange(int preCount, int curCount);
+        void onChange(RatingBar ratingBar, int preCount, int curCount);
     }
 }
 

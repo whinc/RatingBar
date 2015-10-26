@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <com.whinc.widget.RatingBar
+    <com.whinc.widget.ratingbar.RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +26,7 @@
         app:rb_empty="@drawable/empty"
         app:rb_fill="@drawable/fill"
         app:rb_max_count="5"
+        android:clickable="false"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,4 +48,31 @@
             android:text="increase"
             />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/create_ratingbar_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="create RatingBar"
+            />
+        <Button
+            android:id="@+id/change_star_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Change Star"
+            />
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/ratingBar_container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 </LinearLayout>
