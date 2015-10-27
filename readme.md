@@ -49,16 +49,16 @@ ratingBar2.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
 });
 ```
 
-If you don't want RatingBar is clickable, do this:
+RatingBar is not clickable default, you can change this like below:
 ```
 <com.whinc.widget.ratingbar.RatingBar
     ...
-    android:clickable="false"
+    android:clickable="true"
     />
 ```
 or
 ```
-ratingBar2.setClickable(false);
+ratingBar2.setClickable(true);
 ```
 
 ### Customise （自定义）

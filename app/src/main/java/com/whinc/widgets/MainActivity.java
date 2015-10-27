@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         /* create ratingbar with xml layou */
         LinearLayout root = (LinearLayout) findViewById(R.id.root);
         final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setClickable(true);
+//        ratingBar.setClickable(true);
 
         findViewById(R.id.decrease_button).setOnClickListener(new View.OnClickListener() {
             @Override

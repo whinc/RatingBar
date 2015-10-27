@@ -26,7 +26,7 @@
         app:rb_empty="@drawable/empty"
         app:rb_fill="@drawable/fill"
         app:rb_max_count="5"
-        android:clickable="false"
+        android:clickable="true"
         />
     <LinearLayout
         android:layout_width="match_parent"
