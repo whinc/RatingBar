@@ -1,19 +1,18 @@
 
 ### RatingBar
 
-Easy to use and customise.
+A RatingBar that is easy to use and customise
 
 ![](./screenshot.gif)
 
-
 ### Integration（集成）
 
-The widget has been hosted on jcenter, you can use it by add one line below in your module build.gradle.
+The widget has been published on [jcenter][1], you can use it by add one line below in your module build.gradle.
 
 ```
 dependencies {
     ...
-    compile 'com.whinc.widget.ratingbar:ratingbar:1.0.2'
+    compile 'com.whinc.widget.ratingbar:ratingbar:1.0.3'
 }
 ```
 
@@ -26,10 +25,12 @@ Create RatingBar in xml layout:
     android:id="@+id/ratingBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:rb_max_count="5"
     app:rb_count="3"
     app:rb_empty="@drawable/empty"
     app:rb_fill="@drawable/fill"
-    app:rb_max_count="5"
+    app:rb_space="10dp"
+    android:clickable="true"
     />
 ```
 
@@ -41,6 +42,8 @@ ratingBar2.setMaxCount(7);
 ratingBar2.setCount(4);
 ratingBar2.setFillDrawableRes(R.drawable.empty);
 ratingBar2.setEmptyDrawableRes(R.drawable.fill);
+ratingBar2.setClickable(true);
+ratingBar2.setSpace(0);
 ratingBar2.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
     @Override
     public void onChange(RatingBar view, int preCount, int curCount) {
@@ -75,6 +78,8 @@ Here is all the attributes you can use to customise RatingBar.(More Attributes w
 * app:rb_count [Integer default:0] --> current rating count
 * app:rb_fill [Drawable default:@drawable/fill] --> star drawable tha has rating
 * app:rb_empty [Drawable default:@drawable/empty] --> star drawable that has no rating
+* app:rb_space [Dimension default:0] --> space between stars
+* android:clickable [boolean default:false] --> if false RatingBar don't handle click event.
 
 ### The MIT License (MIT)
 
@@ -90,3 +95,4 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
+[1]:https://bintray.com/whinc/maven/ratingbar/view

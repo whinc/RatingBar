@@ -5,5 +5,6 @@
         <attr name="rb_count" format="integer"/>
         <attr name="rb_fill" format="reference"/>
         <attr name="rb_empty" format="reference"/>
+        <attr name="rb_space" format="dimension"/>
     </declare-styleable>
 </resources>

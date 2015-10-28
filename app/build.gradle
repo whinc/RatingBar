@@ -19,15 +19,9 @@ android {
     }
 }
 
-repositories {
-    maven {
-        url 'https://dl.bintray.com/whinc/maven'
-    }
-}
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.1.+'
-    compile 'com.whinc.widget.ratingbar:ratingbar:1.0.2'
-//    compile project(':widget')
+//    compile 'com.whinc.widget.ratingbar:ratingbar:1.0.3'
+    compile project(':widget')
 }

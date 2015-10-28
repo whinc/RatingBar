@@ -26,6 +26,9 @@
         app:rb_empty="@drawable/empty"
         app:rb_fill="@drawable/fill"
         app:rb_max_count="5"
+        app:rb_space="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:clickable="true"
         />
     <LinearLayout
@@ -38,14 +41,16 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="decrease"
+            android:text="Decrease Star"
+            android:textAllCaps="false"
             />
         <Button
             android:id="@+id/increase_button"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="increase"
+            android:text="Increase Star"
+            android:textAllCaps="false"
             />
     </LinearLayout>
 
@@ -55,18 +60,56 @@
         android:orientation="horizontal"
         >
         <Button
-            android:id="@+id/create_ratingbar_button"
+            android:id="@+id/increase_star_button"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="create RatingBar"
+            android:text="Increase Max Star"
+            android:textAllCaps="false"
             />
         <Button
-            android:id="@+id/change_star_button"
+            android:id="@+id/decrease_star_button"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Change Star"
+            android:text="Decrease Max Star"
+            android:textAllCaps="false"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/inverse_star_drawable_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Inverse star drawable"
+            android:textAllCaps="false"
+            />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/increase_star_space_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="increase star space"
+            android:textAllCaps="false"
+            />
+        <Button
+            android:id="@+id/decrease_star_space_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Decrease star space"
+            android:textAllCaps="false"
             />
     </LinearLayout>
     <FrameLayout

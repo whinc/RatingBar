@@ -13,6 +13,7 @@ import com.whinc.widget.ratingbar.RatingBar;
 
 
 public class MainActivity extends AppCompatActivity {
+    private boolean mFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +51,45 @@ public class MainActivity extends AppCompatActivity {
         ratingBar2.setCount(4);
         ratingBar2.setFillDrawableRes(R.drawable.empty);
         ratingBar2.setEmptyDrawableRes(R.drawable.fill);
-        ratingBar2.setClickable(false);
+        ratingBar2.setClickable(true);
+        ratingBar2.setSpace(0);
         container.addView(ratingBar2);
 
-        findViewById(R.id.create_ratingbar_button).setOnClickListener(new View.OnClickListener() {
+        // increase max star
+        findViewById(R.id.increase_star_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ratingBar2.setMaxCount(ratingBar2.getMaxCount() + 1);
             }
         });
-        findViewById(R.id.change_star_button).setOnClickListener(new View.OnClickListener() {
+        // decrease max star
+        findViewById(R.id.decrease_star_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ratingBar2.setFillDrawableRes(R.drawable.empty);
-                ratingBar2.setEmptyDrawableRes(R.drawable.fill);
+                ratingBar2.setMaxCount(ratingBar2.getMaxCount() - 1);
+            }
+        });
+        // inverse star drawable
+        findViewById(R.id.inverse_star_drawable_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFlag = !mFlag;
+                ratingBar2.setFillDrawableRes(mFlag ? R.drawable.empty : R.drawable.fill);
+                ratingBar2.setEmptyDrawableRes(mFlag ? R.drawable.fill : R.drawable.empty);
+            }
+        });
+        // increase star space
+        findViewById(R.id.increase_star_space_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingBar2.setSpace(ratingBar2.getSpace() + 5);
+            }
+        });
+        // decrease star space
+        findViewById(R.id.decrease_star_space_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingBar2.setSpace(ratingBar2.getSpace() - 5);
             }
         });
     }
