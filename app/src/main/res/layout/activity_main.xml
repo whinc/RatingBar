@@ -31,6 +31,32 @@
         android:paddingRight="20dp"
         android:clickable="true"
         />
+    <com.whinc.widget.ratingbar.RatingBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rb_count="3"
+        app:rb_empty="@drawable/empty"
+        app:rb_fill="@drawable/fill"
+        app:rb_max_count="5"
+        app:rb_space="20dp"
+        app:rb_click_rating="false"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:clickable="true"
+        />
+    <com.whinc.widget.ratingbar.RatingBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rb_count="3"
+        app:rb_empty="@drawable/empty"
+        app:rb_fill="@drawable/fill"
+        app:rb_max_count="5"
+        app:rb_space="20dp"
+        app:rb_touch_rating="false"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:clickable="true"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

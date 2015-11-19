@@ -6,5 +6,7 @@
         <attr name="rb_fill" format="reference"/>
         <attr name="rb_empty" format="reference"/>
         <attr name="rb_space" format="dimension"/>
+        <attr name="rb_click_rating" format="boolean"/>
+        <attr name="rb_touch_rating" format="boolean"/>
     </declare-styleable>
 </resources>

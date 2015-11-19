@@ -1,7 +1,7 @@
 
 ### RatingBar
 
-A RatingBar that is easy to use and customise
+A RatingBar that is easy to use and custom.
 
 ![](./screenshot.gif)
 
@@ -9,77 +9,60 @@ A RatingBar that is easy to use and customise
 
 The widget has been published on [jcenter][1], you can use it by add one line below in your module build.gradle.
 
-```
-dependencies {
-    ...
-    compile 'com.whinc.widget.ratingbar:ratingbar:1.0.3'
-}
-```
+    dependencies {
+        ...
+        compile 'com.whinc.widget.ratingbar:ratingbar:1.1.0'
+    }
 
 ### How to use （如何使用）
 
 Create RatingBar in xml layout:
 
-```
-<com.whinc.widget.ratingbar.RatingBar
-    android:id="@+id/ratingBar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:rb_max_count="5"
-    app:rb_count="3"
-    app:rb_empty="@drawable/empty"
-    app:rb_fill="@drawable/fill"
-    app:rb_space="10dp"
-    android:clickable="true"
-    />
-```
+    <com.whinc.widget.ratingbar.RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rb_max_count="5"
+        app:rb_count="3"
+        app:rb_empty="@drawable/empty"
+        app:rb_fill="@drawable/fill"
+        app:rb_space="10dp"
+        app:rb_click_rating="false"
+        app:rb_touch_rating="false"
+        />
 
 Create RatingBar in java code:
 
-```
-RatingBar ratingBar2 = new RatingBar(this);
-ratingBar2.setMaxCount(7);
-ratingBar2.setCount(4);
-ratingBar2.setFillDrawableRes(R.drawable.empty);
-ratingBar2.setEmptyDrawableRes(R.drawable.fill);
-ratingBar2.setClickable(true);
-ratingBar2.setSpace(0);
-ratingBar2.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
-    @Override
-    public void onChange(RatingBar view, int preCount, int curCount) {
-        Log.i("TAG", String.format("previous count:%d, current count:%d", preCount, curCount));
-    }
-});
-```
-
-RatingBar is not clickable default, you can change this like below:
-```
-<com.whinc.widget.ratingbar.RatingBar
-    ...
-    android:clickable="true"
-    />
-```
-or
-```
-ratingBar2.setClickable(true);
-```
+    RatingBar ratingBar2 = new RatingBar(this);
+    ratingBar2.setMaxCount(7);
+    ratingBar2.setCount(4);
+    ratingBar2.setFillDrawableRes(R.drawable.empty);
+    ratingBar2.setEmptyDrawableRes(R.drawable.fill);
+    ratingBar2.setSpace(0);
+    ratingBar2.setTouchRating(false);
+    //ratingBar2.setClickRating(false);
+    ratingBar2.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+        @Override
+        public void onChange(RatingBar view, int preCount, int curCount) {
+            Log.i("TAG", String.format("previous count:%d, current count:%d", preCount, curCount));
+        }
+    });
 
 ### Customise （自定义）
 
 First, make sure you have add below namespace to the layout root tag.
 
-```
-xmlns:app="http://schemas.android.com/apk/res-auto"
-```
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
 Here is all the attributes you can use to customise RatingBar.(More Attributes will be add later.)
 
 * app:rb_max_count [Integer default:5] --> max rating count
-* app:rb_count [Integer default:0] --> current rating count
+* app:rb_count [Integer default:0] --> rating count
 * app:rb_fill [Drawable default:@drawable/fill] --> star drawable tha has rating
 * app:rb_empty [Drawable default:@drawable/empty] --> star drawable that has no rating
 * app:rb_space [Dimension default:0] --> space between stars
-* android:clickable [boolean default:false] --> if false RatingBar don't handle click event.
+* app:rb_click_rating [Boolean default:true] --> enable/disable rating by click on RatingBar
+* app:rb_touch_rating [Boolean default:true] --> enable/disable rating by touch on RatingBar
 
 ### The MIT License (MIT)
 

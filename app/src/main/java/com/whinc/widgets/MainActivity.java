@@ -23,20 +23,7 @@ public class MainActivity extends AppCompatActivity {
         /* create ratingbar with xml layou */
         LinearLayout root = (LinearLayout) findViewById(R.id.root);
         final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-//        ratingBar.setClickable(true);
-
-        findViewById(R.id.decrease_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ratingBar.setCount(ratingBar.getCount() - 1);
-            }
-        });
-        findViewById(R.id.increase_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ratingBar.setCount(ratingBar.getCount() + 1);
-            }
-        });
+//        ratingBar.setClickRating(false);
         ratingBar.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
             @Override
             public void onChange(RatingBar view, int preCount, int curCount) {
@@ -51,9 +38,28 @@ public class MainActivity extends AppCompatActivity {
         ratingBar2.setCount(4);
         ratingBar2.setFillDrawableRes(R.drawable.empty);
         ratingBar2.setEmptyDrawableRes(R.drawable.fill);
-        ratingBar2.setClickable(true);
         ratingBar2.setSpace(0);
+//        ratingBar2.setTouchRating(false);
+        ratingBar2.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
+            @Override
+            public void onChange(RatingBar view, int preCount, int curCount) {
+                Log.i("TAG", String.format("previous count:%d, current count:%d", preCount, curCount));
+            }
+        });
         container.addView(ratingBar2);
+
+        findViewById(R.id.decrease_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingBar.setCount(ratingBar.getCount() - 1);
+            }
+        });
+        findViewById(R.id.increase_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ratingBar.setCount(ratingBar.getCount() + 1);
+            }
+        });
 
         // increase max star
         findViewById(R.id.increase_star_button).setOnClickListener(new View.OnClickListener() {
