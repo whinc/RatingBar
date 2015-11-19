@@ -27,8 +27,8 @@ Create RatingBar in xml layout:
         app:rb_empty="@drawable/empty"
         app:rb_fill="@drawable/fill"
         app:rb_space="10dp"
-        app:rb_click_rating="false"
-        app:rb_touch_rating="false"
+        app:rb_click_rating="true"
+        app:rb_touch_rating="true"
         />
 
 Create RatingBar in java code:
@@ -39,8 +39,8 @@ Create RatingBar in java code:
     ratingBar2.setFillDrawableRes(R.drawable.empty);
     ratingBar2.setEmptyDrawableRes(R.drawable.fill);
     ratingBar2.setSpace(0);
-    ratingBar2.setTouchRating(false);
-    //ratingBar2.setClickRating(false);
+    ratingBar2.setTouchRating(true);
+    ratingBar2.setClickRating(true);
     ratingBar2.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
         @Override
         public void onChange(RatingBar view, int preCount, int curCount) {
@@ -56,13 +56,13 @@ First, make sure you have add below namespace to the layout root tag.
 
 Here is all the attributes you can use to customise RatingBar.(More Attributes will be add later.)
 
-* app:rb_max_count [Integer default:5] --> max rating count
-* app:rb_count [Integer default:0] --> rating count
-* app:rb_fill [Drawable default:@drawable/fill] --> star drawable tha has rating
-* app:rb_empty [Drawable default:@drawable/empty] --> star drawable that has no rating
-* app:rb_space [Dimension default:0] --> space between stars
-* app:rb_click_rating [Boolean default:true] --> enable/disable rating by click on RatingBar
-* app:rb_touch_rating [Boolean default:true] --> enable/disable rating by touch on RatingBar
+    * app:rb_max_count [Integer default:5] --> max rating count
+    * app:rb_count [Integer default:0] --> rating count
+    * app:rb_fill [Drawable default:@drawable/fill] --> star drawable tha has rating
+    * app:rb_empty [Drawable default:@drawable/empty] --> star drawable that has no rating
+    * app:rb_space [Dimension default:0] --> space between stars
+    * app:rb_click_rating [Boolean default:true] --> enable/disable rating by click on RatingBar
+    * app:rb_touch_rating [Boolean default:true] --> enable/disable rating by touch on RatingBar
 
 ### The MIT License (MIT)
 
