@@ -376,7 +376,7 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
             default:
                 break;
         }
-        return super.onTouchEvent(event);
+        return super.onTouchEvent(event) && false;
     }
 
     private View getStarView(int index) {

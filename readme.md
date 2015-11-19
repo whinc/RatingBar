@@ -11,7 +11,7 @@ The widget has been published on [jcenter][1], you can use it by add one line be
 
     dependencies {
         ...
-        compile 'com.whinc.widget.ratingbar:ratingbar:1.1.0'
+        compile 'com.whinc.widget.ratingbar:ratingbar:1.1.1'
     }
 
 ### How to use （如何使用）
