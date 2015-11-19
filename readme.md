@@ -61,8 +61,8 @@ Here is all the attributes you can use to customise RatingBar.(More Attributes w
     * app:rb_fill [Drawable default:@drawable/fill] --> star drawable tha has rating
     * app:rb_empty [Drawable default:@drawable/empty] --> star drawable that has no rating
     * app:rb_space [Dimension default:0] --> space between stars
-    * app:rb_click_rating [Boolean default:true] --> enable/disable rating by click on RatingBar
-    * app:rb_touch_rating [Boolean default:true] --> enable/disable rating by touch on RatingBar
+    * app:rb_click_rating [Boolean default:true] --> enable/disable rating with click action
+    * app:rb_touch_rating [Boolean default:true] --> enable/disable rating with touch action
 
 ### The MIT License (MIT)
 
