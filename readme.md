@@ -1,18 +1,30 @@
 
 ### RatingBar
 
-A RatingBar that is easy to use and custom.
+`RatingBar` is a custom widget use to display rating in star.
 
 ![](./screenshot.gif)
 
 ### Integration（集成）
 
-The widget has been published on [jcenter][1], you can use it by add one line below in your module build.gradle.
+Add maven repository to you **root** build.gradle:
 
-    dependencies {
+```
+allprojects {
+    repositories {
         ...
-        compile 'com.whinc.widget.ratingbar:ratingbar:1.1.1'
+        maven { url "https://jitpack.io" }
     }
+}
+```
+
+Then add the dependency to you **module** build.gradle:
+
+```
+dependencies {
+    compile 'com.github.whinc:ratingbar:1.1.1'
+}
+```
 
 ### How to use （如何使用）
 
