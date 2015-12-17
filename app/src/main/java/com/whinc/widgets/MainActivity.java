@@ -2,6 +2,7 @@ package com.whinc.widgets;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.system.Os;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;

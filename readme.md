@@ -48,6 +48,8 @@ Create RatingBar in java code:
         }
     });
 
+>Note:If you don't want display empty star set it's drawable to null instead of transparent drawable.
+
 ### Customise （自定义）
 
 First, make sure you have add below namespace to the layout root tag.

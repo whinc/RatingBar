@@ -113,7 +113,7 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
         }
 
         mSpace = space;
-        update();
+        updateStarViews();
     }
 
     public Drawable getFillDrawable() {
@@ -125,7 +125,7 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
             return;
         }
         mFillDrawable = fillDrawable;
-        update();
+        updateStarViews();
     }
 
     /**
@@ -145,12 +145,9 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
         return mEmptyDrawable;
     }
 
-    public void setEmptyDrawable(Drawable emptyDrawable) {
-        if (emptyDrawable == null) {
-            return;
-        }
+    public void setEmptyDrawable(@Nullable Drawable emptyDrawable) {
         mEmptyDrawable = emptyDrawable;
-        update();
+        updateStarViews();
     }
 
     /**
@@ -190,7 +187,7 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
             return;
         }
         mMaxCount = maxCount;
-        createChildViews(mContext, maxCount, mSpace);
+        createStarViews(maxCount);
 
         if (maxCount < mCount) {
             setCount(maxCount);
@@ -220,7 +217,7 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
 
         int oldCount = mCount;
         mCount = count;
-        update();
+        updateStarViews();
         if (mOnRatingChangeListener != null) {
             mOnRatingChangeListener.onChange(this, oldCount, mCount);
         }
@@ -256,28 +253,23 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
                     mFillDrawable = context.getResources().getDrawable(R.drawable.fill);
                 }
             }
-            if (mEmptyDrawable == null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mEmptyDrawable = context.getDrawable(R.drawable.empty);
-                } else {
-                    mEmptyDrawable = context.getResources().getDrawable(R.drawable.empty);
-                }
-            }
 
             mMaxCount = Math.max(0, mMaxCount);
             mCount = Math.max(0, Math.min(mCount, mMaxCount));
         }
 
+        // Create root layout (LinearLayout) used to contain stars
         mRootLayout = new LinearLayout(context);
         addView(mRootLayout, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
         ));
 
-        createChildViews(context, mMaxCount, mSpace);
+        createStarViews(mMaxCount);
     }
 
-    private void createChildViews(Context context, int count, int space) {
+    // create star views
+    private void createStarViews(int count) {
         // remove previous child views
         if (mRootLayout.getChildCount() > 0) {
             mRootLayout.removeAllViews();
@@ -286,15 +278,14 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
         // create new image views
         mImageViews = new ImageView[count];
         for (int i = 0; i < mImageViews.length; ++i) {
-            // parent of ImageView
-            FrameLayout frameLayout = new FrameLayout(context);
+            // Use FrameLayout to wrap the star view
+            FrameLayout frameLayout = new FrameLayout(getContext());
             LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
                     0, ViewGroup.LayoutParams.MATCH_PARENT, 1
             );
             mRootLayout.addView(frameLayout, llp);
 
-            // RatingBar extends from FrameLayout, every star is a ImageView as a child of FrameLayout
-            mImageViews[i] = new ImageView(context);
+            mImageViews[i] = new ImageView(getContext());
             ImageView imageView = mImageViews[i];
             imageView.setOnClickListener(this);
             imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -307,23 +298,28 @@ public class RatingBar extends FrameLayout implements View.OnClickListener {
             frameLayout.addView(imageView, flp);
         }
 
-        update();
+        updateStarViews();
     }
 
     /**
      * <p>Update the rating bar with current rating count.</p>
      */
-    private void update() {
+    private void updateStarViews() {
         ImageView imgView;
-        for (int i = 0; i < mMaxCount; ++i) {
+        // update drawable
+        for (int i = 0; i < mImageViews.length; ++i) {
             imgView = mImageViews[i];
             imgView.setImageDrawable((i < mCount) ? mFillDrawable : mEmptyDrawable);
 
-            // update space between star(ImageView)
+            // update margin between the stars whose drawable is not null
             ViewGroup parent = (ViewGroup) imgView.getParent();
             MarginLayoutParams mlp = (MarginLayoutParams) parent.getLayoutParams();
-            if (i < mImageViews.length - 1) {
-                mlp.setMargins(0, 0, mSpace, 0);
+            if (imgView.getDrawable() != null
+                    && (i - 1) >= 0
+                    && mImageViews[i - 1].getDrawable() != null) {
+                mlp.setMargins(mSpace, 0, 0, 0);
+            } else {
+                mlp.setMargins(0, 0, 0, 0);
             }
             parent.setLayoutParams(mlp);
         }
